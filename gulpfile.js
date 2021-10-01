@@ -27,7 +27,8 @@ const path = {
 const {src, dest} = require('gulp'),
       gulp = require('gulp'),
       browsersync = require('browser-sync').create(),
-      fileinclude = require('gulp-file-include');
+      fileinclude = require('gulp-file-include'),
+      del = require('del');
 
 
 function browserSync(params) {
@@ -50,6 +51,10 @@ function html() {
 
 function watchFiles(params) {
   gulp.watch([path.watch.html], html)
+}
+
+function clean(params) {
+  return del(path.clean);
 }
 
 const build = gulp.series(html);
