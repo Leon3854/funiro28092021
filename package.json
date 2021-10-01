@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Leon3854/funiro28092021#readme",
   "devDependencies": {
+    "browser-sync": "^2.27.5",
     "gulp": "^4.0.2"
   }
 }

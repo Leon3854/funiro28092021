@@ -9,7 +9,7 @@ const path = {
     fonts: project_folder + "/fonts/"
   },
   src: {
-    html: source_folder + "/",
+    html: source_folder + "/*.html",
     css: source_folder + "/scss/style.scss",
     js: source_folder + "js/script.js",
     img: source_folder + "/img/**/*.{jpg,png,svg,gif,ico,webp}",
@@ -23,3 +23,32 @@ const path = {
   },
   clean: "./" + project_folder + "/"
 }
+
+const {src, dest} = require('gulp'),
+      gulp = require('gulp'),
+      browsersync = require('browser-sync').create();
+
+
+function browserSync(params) {
+  browsersync.init({
+    server: {
+      baseDir: "./" + project_folder + "/"
+    },
+    port: 3000,
+    notify: false
+  })
+}
+
+function html() {
+  return src(path.src.html)
+  .pipe(dest(path.build.html))
+  .pipe((browsersync.stream()))
+}
+
+const build = gulp.series(html);
+const watch = gulp.parallel(build, browserSync);
+
+exports.html = html;
+exports.build = build;
+exports.watch = watch;
+exports.default = watch;
