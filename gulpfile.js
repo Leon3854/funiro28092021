@@ -30,7 +30,8 @@ const {src, dest} = require('gulp'),
       fileinclude = require('gulp-file-include'),
       del = require('del'), 
       scss = require('gulp-sass'),
-      autoprefixer = require('gulp-autoprefixer');
+      autoprefixer = require('gulp-autoprefixer'),
+      group_media = require('gulp-group-css-media-queries');
 
 
 function browserSync(params) {
@@ -53,6 +54,7 @@ function html() {
 function css() {
   return src(path.src.css)
   .pipe(scss({outputStyle: 'expanded'}))
+  .pipe(group_media())
   .pipe(autoprefixer({
     overrideBrowserslist: ["last 5 versions"],
     cascade: true
