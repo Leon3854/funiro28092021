@@ -31,7 +31,9 @@ const {src, dest} = require('gulp'),
       del = require('del'), 
       scss = require('gulp-sass'),
       autoprefixer = require('gulp-autoprefixer'),
-      group_media = require('gulp-group-css-media-queries');
+      group_media = require('gulp-group-css-media-queries'),
+      clean_css = require('gulp-clean-css'),
+      rename = require('gulp-rename');
 
 
 function browserSync(params) {
@@ -59,6 +61,9 @@ function css() {
     overrideBrowserslist: ["last 5 versions"],
     cascade: true
   }))
+  .pipe(dest(path.build.css))
+  .pipe(clean_css())
+  .pipe(rename({extname: '.min.css'}))
   .pipe(dest(path.build.css))
   .pipe(browsersync.stream())
 }
